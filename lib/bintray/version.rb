@@ -7,8 +7,9 @@ module Bintray
       @fs = fs
     end
 
-    def upload(filename, publish = false)
-      resp = @api.put("/content/#{owner}/#{repo}/#{package}/#{name}/#{filename}#{publish_param(publish)}",
+    def upload(filename, path = nil, publish = false)
+      path ||= filename
+      resp = @api.put("/content/#{owner}/#{repo}/#{package}/#{name}/#{path}#{publish_param(publish)}",
                       @fs.fetch(filename))
       begin
         resp["message"] == "success"
