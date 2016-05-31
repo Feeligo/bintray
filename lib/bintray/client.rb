@@ -9,15 +9,15 @@ module Bintray
                      @params[:key])
     end
 
-    def repo?(name)
-      repo(name)
+    def repo?(name, organization = nil)
+      repo(name, organization)
       true
     rescue Error::NotFound
       false
     end
 
-    def repo(name)
-      Repository.new @api, @api.get("/repos/#{@params[:user]}/#{name}")
+    def repo(name, organization = nil)
+      Repository.new @api, @api.get("/repos/#{organization || @params[:user]}/#{name}")
     end
   end
 end
