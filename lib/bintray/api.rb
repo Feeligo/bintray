@@ -31,7 +31,11 @@ module Bintray
     private
 
     def request_body_for(data)
-      {:body => data.to_json, :headers => { 'Content-Type' => 'application/json' }}
+      if data.is_a? Hash
+        {:body => data.to_json, :headers => { 'Content-Type' => 'application/json' }}
+      else
+        {:body => data, :headers => { }}
+      end
     end
 
     def authenticated(data = {})
